@@ -6,5 +6,6 @@ test('Should create new car instance', () => {
   expect(car1.currentLocation.longitude).toBe(60);
   expect(car1.colour).toBe("pink");
   expect(car1.averageKilometerPerHour).toBe(15);
+  expect(car1.isAvailable).toBe(true)
 
 });
