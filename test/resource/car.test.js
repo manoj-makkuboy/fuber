@@ -1,4 +1,4 @@
-const Car = require('../resource/Car');
+const Car = require("../../src/resource/Car");
 
 test('Should create new car instance', () => {
   let car1 = new Car({currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15})
