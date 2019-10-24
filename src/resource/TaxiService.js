@@ -3,6 +3,10 @@ class TaxiService {
         this.cars = args;
     }
 
+    getAllCars() {
+        return this.cars
+    }
+
 }
 
 module.exports = TaxiService
