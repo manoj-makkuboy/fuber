@@ -29,6 +29,21 @@ test('Should return nearest car', () => {
     expect(nearestCar).toEqual(car2);
 });
 
+test('Should return nearest car by Chosen Colour', () => {
+    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15};
+    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15};
+    let car3 = {currentLocation: {latitude: 30, longitude: 31}, colour: "pink", averageKilometerPerHour: 15};
+    
+    let fuber = new TaxiService([car1, car2, car3]);
+    fuber.getNearestCar = jest.fn();
+
+
+    let customerLocation = {latitude: 29, longitude: 29}
+    let nearestCar = fuber.getNearestCarByColour(customerLocation, "pink")
+
+    expect(fuber.getNearestCar.mock.calls[0][1]).toEqual([car1, car3]);
+});
+
 test('Should return distance between two points', () => {
     let car1 = {currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
 
