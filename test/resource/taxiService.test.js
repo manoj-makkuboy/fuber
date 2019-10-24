@@ -1,21 +1,12 @@
 const TaxiService = require("../../src/resource/TaxiService")
 
-test('Should init taxiService', () => {
-    let car1 = {currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
-    let car2 = {currentLocation: {latitude: 30, longitude: 40}, colour: "blue", averageKilometerPerHour: 15};
-    let car3 = {currentLocation: {latitude: 40, longitude: 30}, colour: "blue", averageKilometerPerHour: 15};
-    let car4 = {currentLocation: {latitude: 90, longitude: 10}, colour: "pink", averageKilometerPerHour: 15};
+test('Should return nearest available car', () => {
+    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15, isAvailable: true};
+    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15, isAvailable: true};
+    let car3 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15, isAvailable: false};
 
-    let fuber = new TaxiService([car1, car2, car3, car4]);
-
-    expect(fuber.getAllCars()).toEqual([car1, car2, car3, car4]);
-});
-
-test('Should return nearest car', () => {
-    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15};
-    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15};
     
-    let fuber = new TaxiService([car1, car2]);
+    let fuber = new TaxiService([car1, car2, car3]);
     fuber._distanceBetweenPoints = jest.fn();
 
     fuber._distanceBetweenPoints
@@ -23,25 +14,27 @@ test('Should return nearest car', () => {
         .mockReturnValueOnce(5)
 
     let customerLocation = {latitude: 29, longitude: 29}
-    let nearestCar = fuber.getNearestCar(customerLocation)
+    let nearestCar = fuber.getNearestAvailableCar(customerLocation)
 
     expect(fuber._distanceBetweenPoints.mock.calls.length).toBe(2);
     expect(nearestCar).toEqual(car1);
 });
 
-test('Should return nearest car by Chosen Colour', () => {
-    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15};
-    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15};
-    let car3 = {currentLocation: {latitude: 30, longitude: 31}, colour: "pink", averageKilometerPerHour: 15};
+test('Should return nearest available car by Chosen Colour', () => {
+    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15, isAvailable:true};
+    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15, isAvailable: true};
+    let car3 = {currentLocation: {latitude: 30, longitude: 31}, colour: "pink", averageKilometerPerHour: 15, isAvailable: true};
+    let car4 = {currentLocation: {latitude: 30, longitude: 31}, colour: "pink", averageKilometerPerHour: 15, isAvailable: false};
+
     
-    let fuber = new TaxiService([car1, car2, car3]);
-    fuber.getNearestCar = jest.fn();
+    let fuber = new TaxiService([car1, car2, car3, car4]);
+    fuber.getNearestAvailableCar = jest.fn();
 
 
     let customerLocation = {latitude: 29, longitude: 29}
-    let nearestCar = fuber.getNearestCarByColour(customerLocation, "pink")
+    let nearestCar = fuber.getNearestAvailableCarByColour(customerLocation, "pink")
 
-    expect(fuber.getNearestCar.mock.calls[0][1]).toEqual([car1, car3]);
+    expect(fuber.getNearestAvailableCar.mock.calls[0][1]).toEqual([car1, car3, car4]);
 });
 
 test('Should return distance between two points', () => {
@@ -52,17 +45,5 @@ test('Should return distance between two points', () => {
     expect(fuber._distanceBetweenPoints([1,1], [2,2])).toBe(1);
 });
 
-test('Should return all cars available for ride', () => {
 
-    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15};
-    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15};
-    let car3 = {currentLocation: {latitude: 30, longitude: 31}, colour: "pink", averageKilometerPerHour: 15};
-
-    let fuber = new TaxiService([car1, car2, car3]);
-    fuber.cars[0].isAvailable = true
-    fuber.cars[2].isAvailable = true
-
-
-    expect(fuber._getAllAvailableCars()).toEqual([car1, car3]);
-});
 
