@@ -26,7 +26,7 @@ test('Should return nearest car', () => {
     let nearestCar = fuber.getNearestCar(customerLocation)
 
     expect(fuber._distanceBetweenPoints.mock.calls.length).toBe(2);
-    expect(nearestCar).toEqual(car2);
+    expect(nearestCar).toEqual(car1);
 });
 
 test('Should return nearest car by Chosen Colour', () => {
