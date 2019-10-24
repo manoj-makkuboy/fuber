@@ -4,14 +4,23 @@ class TaxiService {
     }
 
     getAllCars() {
-        return this.cars
+        return this.cars;
     }
 
-    getNearestCar(customerLocation) {
-      let distanceArray = this.cars.map((car) => this._distanceBetweenPoints([car.currentLocation.latitude, car.currentLocation.logitude], [customerLocation.latitude, customerLocation.logitude]));
+    _getAllAvailableCars() {
+        return this.cars.filter((car) => car.isAvailable === true ? true : false);
+    }
+
+    getNearestCar(customerLocation, cars = this.cars) {
+      let distanceArray = cars.map((car) => this._distanceBetweenPoints([car.currentLocation.latitude, car.currentLocation.logitude], [customerLocation.latitude, customerLocation.logitude]));
       let nearestDistanceIndex = distanceArray.indexOf(Math.max(...distanceArray))
 
-      return this.cars[nearestDistanceIndex]
+      return cars[nearestDistanceIndex]
+    }
+
+    getNearestCarByColour(customerLocation, colour) {
+        let carsWithRequiredColors = this.cars.filter((car) => car.colour === colour ? true : false)
+        return this.getNearestCar(customerLocation, carsWithRequiredColors) 
     }
 
     _distanceBetweenPoints(coorindate1, coordinate2){
