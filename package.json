@@ -1,0 +1,24 @@
+{
+  "name": "hello-world-node-koa",
+  "version": "1.0.0",
+  "description": "basic endpoint boilerplate with sqlite",
+  "main": "server.js",
+  "dependencies": {
+    "jest": "^24.9.0",
+    "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "author": "",
+  "license": "ISC"
+}
