@@ -12,24 +12,27 @@ test('Should init taxiService', () => {
 });
 
 test('Should return nearest car', () => {
-    let car1 = {currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
-    let car2 = {currentLocation: {latitude: 30, longitude: 30}, colour: "blue", averageKilometerPerHour: 15};
-    let car3 = {currentLocation: {latitude: 40, longitude: 30}, colour: "blue", averageKilometerPerHour: 15};
-    let car4 = {currentLocation: {latitude: 90, longitude: 10}, colour: "pink", averageKilometerPerHour: 15};
+    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15};
+    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15};
+    
+    let fuber = new TaxiService([car1, car2]);
+    fuber._distanceBetweenPoints = jest.fn();
 
-    let fuber = new TaxiService([car1, car2, car3, car4]);
+    fuber._distanceBetweenPoints
+        .mockReturnValueOnce(4)
+        .mockReturnValueOnce(5)
 
     let customerLocation = {latitude: 29, longitude: 29}
+    let nearestCar = fuber.getNearestCar(customerLocation)
 
-    expect(fuber.getNearestCar(customerLocation)).toEqual([car2]);
+    expect(fuber._distanceBetweenPoints.mock.calls.length).toBe(2);
+    expect(nearestCar).toEqual(car2);
 });
 
 test('Should return distance between two points', () => {
     let car1 = {currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
 
     let fuber = new TaxiService([car1]);
-
-    let customerLocation = {latitude: 29, longitude: 29}
 
     expect(fuber._distanceBetweenPoints([1,1], [2,2])).toBe(1);
 });
