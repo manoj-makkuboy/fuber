@@ -52,3 +52,17 @@ test('Should return distance between two points', () => {
     expect(fuber._distanceBetweenPoints([1,1], [2,2])).toBe(1);
 });
 
+test('Should return all cars available for ride', () => {
+
+    let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15};
+    let car2 = {currentLocation: {latitude: 30, longitude: 31}, colour: "blue", averageKilometerPerHour: 15};
+    let car3 = {currentLocation: {latitude: 30, longitude: 31}, colour: "pink", averageKilometerPerHour: 15};
+
+    let fuber = new TaxiService([car1, car2, car3]);
+    fuber.cars[0].isAvailable = true
+    fuber.cars[2].isAvailable = true
+
+
+    expect(fuber._getAllAvailableCars()).toEqual([car1, car3]);
+});
+
