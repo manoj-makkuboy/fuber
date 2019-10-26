@@ -65,3 +65,19 @@ test('Should create pickup time on create of new trip', () => {
     expect(trip2.pickupTime).toBe(new Date());
 
 });
+
+test('Should set availability of car to false on create of new trip', () => {
+    let car1 = new Car({
+        id: 1,
+        currentLocation: { latitude: 50, longitude: 60 },
+        colour: "pink",
+        isAvailable: true
+    });
+    let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
+
+    expect(car1.isAvailable).toBe(true);
+    let trip1 = new Trip(car1, pickupLocation);
+
+    expect(car1.isAvailable).toBe(false);
+
+});

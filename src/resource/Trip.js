@@ -1,6 +1,7 @@
 class Trip {
     constructor(car, pickupLocation) {
-        this.id = Trip.setAutoIncrementId()
+        this.id = Trip.setAutoIncrementId();
+        car.setAvailable(false);
         this.car = car;
         this.pickupLocation = pickupLocation;
         this.pickupTime = new Date();
