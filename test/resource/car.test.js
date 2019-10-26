@@ -9,3 +9,12 @@ test('Should create new car instance', () => {
   expect(car1.isAvailable).toBe(true);
 
 });
+
+test('Should set car availability status', () => {
+  let car1 = new Car({currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15, isAvailable: false});
+  car1.setAvailable(true);
+  expect(car1.isAvailable).toBe(true);
+  car1.setAvailable(false);
+  expect(car1.isAvailable).toBe(false);
+
+});

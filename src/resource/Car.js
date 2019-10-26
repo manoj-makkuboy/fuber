@@ -7,6 +7,10 @@ class Car {
         this.isAvailable = true;
     }
 
+    setAvailable(isAvailable){
+        this.isAvailable = isAvailable;
+    }
+
 }
 
 module.exports = Car
