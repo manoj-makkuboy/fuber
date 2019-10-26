@@ -3,6 +3,7 @@ class Trip {
         this.id = Trip.setAutoIncrementId()
         this.car = car;
         this.pickupLocation = pickupLocation;
+        this.pickupTime = new Date();
     }
 
     static noOfTripsCreated = 0

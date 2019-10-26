@@ -39,3 +39,29 @@ test('Should Auto Increment ID on create of new trip', () => {
     expect(trip2.id).toBe(2);
 
 });
+
+
+test('Should create pickup time on create of new trip', () => {
+    let car1 = new Car({
+        id: 1,
+        currentLocation: { latitude: 50, longitude: 60 },
+        colour: "pink",
+        averageKilometerPerHour: 15
+    });
+    let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
+
+    const mockDate = new Date(1466424490000)
+    jest
+      .spyOn(global, 'Date')
+      .mockImplementation(() => mockDate)
+
+
+    let trip1 = new Trip(car1, pickupLocation);
+    expect(Trip.noOfTripsCreated).toBe(1);
+    expect(trip1.pickupTime).toBe(new Date());
+
+    let trip2 = new Trip(car1, pickupLocation);
+    expect(Trip.noOfTripsCreated).toBe(2);
+    expect(trip2.pickupTime).toBe(new Date());
+
+});
