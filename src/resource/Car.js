@@ -7,7 +7,7 @@ class Car {
         this.isAvailable = true;
     }
 
-    setAvailable(isAvailable){
+    setAvailable = (isAvailable) => {
         this.isAvailable = isAvailable;
     }
 

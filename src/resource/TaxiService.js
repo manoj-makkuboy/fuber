@@ -28,7 +28,9 @@ class TaxiService {
     }
 
     createTrip(car, pickupLocation) {
-        this.trips.push(new Trip(car, pickupLocation));
+        let trip = new Trip(car, pickupLocation);
+        this.trips.push(trip);
+        return trip;
     }
 
 }
