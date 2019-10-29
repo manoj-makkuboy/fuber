@@ -7,6 +7,7 @@ app.use(bodyParser());
 app.use(router.routes());
 
 let Fuber = require("../Fuber")
+let Trip = require("../resource/Trip")
 
 // Route to handle GET request
 router.get("/car", async (ctx, next) => {
@@ -18,19 +19,36 @@ router.get("/car", async (ctx, next) => {
   console.log(pickupCoordinates, preferredColour)
   if(preferredColour){
     console.log("customer prefers colour")
-    ctx.response.body = Fuber.getNearestAvailableCarByColour(pickupCoordinates, preferredColour);
+    availableCar = Fuber.getNearestAvailableCarByColour(pickupCoordinates, preferredColour);
   }
   else{
-    ctx.response.body = Fuber.getNearestAvailableCar(pickupCoordinates);
+    availableCar = Fuber.getNearestAvailableCar(pickupCoordinates);
+  }
+
+  if(!availableCar){
+    ctx.response.status = 204;
+  }else{
+    ctx.response.body = availableCar
   }
 
   await next();
 });
 
 // Route to handle POST request
-router.post("/helloWorld", async (ctx, next) => {
-  console.log('payload in POST ', ctx.request.body)
-  ctx.response.body = 'hello world ';
+router.post("/trip", async (ctx, next) => {
+  let requestBody = ctx.request.body;
+  let carParticipatingInTrip = Fuber.cars.filter((car) => car.id === requestBody.car.id && car.isAvailable === true);  
+  console.log(carParticipatingInTrip)
+  if(carParticipatingInTrip.length !== 0){
+    let createdTrip = Fuber.createTrip(carParticipatingInTrip[0], requestBody.pickupLocation);
+    ctx.response.body = createdTrip;
+    ctx.response.status = 201;
+  }
+  else{
+    ctx.response.status = 412;
+    ctx.response.body = {message: "no cars available for trip"}
+  }
+
   await next();
 });
 
