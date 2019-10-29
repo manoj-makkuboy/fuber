@@ -1,6 +1,8 @@
+let Trip = require("../resource/Trip")
 class TaxiService {
     constructor(args) {
         this.cars = args;
+        this.trips = [];
     }
 
     getNearestAvailableCar(customerLocation, cars = this.cars) {
@@ -23,6 +25,10 @@ class TaxiService {
         let distance = Math.sqrt(a * a + b * b);
 
         return Math.round(distance)
+    }
+
+    createTrip(car, pickupLocation) {
+        this.trips.push(new Trip(car, pickupLocation));
     }
 
 }
