@@ -15,19 +15,19 @@ router.get("/car", async (ctx, next) => {
   let preferredColour = colour
   pickupCoordinates = (pickupCoordinates.split(','))
     .map((coordinate) => parseFloat(coordinate))
-  pickupCoordinates = {latitude: pickupCoordinates[0], longitude: pickupCoordinates[1]}
+  pickupCoordinates = { latitude: pickupCoordinates[0], longitude: pickupCoordinates[1] }
   console.log(pickupCoordinates, preferredColour)
-  if(preferredColour){
+  if (preferredColour) {
     console.log("customer prefers colour")
     availableCar = Fuber.getNearestAvailableCarByColour(pickupCoordinates, preferredColour);
   }
-  else{
+  else {
     availableCar = Fuber.getNearestAvailableCar(pickupCoordinates);
   }
 
-  if(!availableCar){
+  if (!availableCar) {
     ctx.response.status = 204;
-  }else{
+  } else {
     ctx.response.body = availableCar
   }
 
@@ -37,21 +37,31 @@ router.get("/car", async (ctx, next) => {
 // Route to handle POST request
 router.post("/trip", async (ctx, next) => {
   let requestBody = ctx.request.body;
-  let carParticipatingInTrip = Fuber.cars.filter((car) => car.id === requestBody.car.id && car.isAvailable === true);  
+  let carParticipatingInTrip = Fuber.cars.filter((car) => car.id === requestBody.car.id && car.isAvailable === true);
   console.log(carParticipatingInTrip)
-  if(carParticipatingInTrip.length !== 0){
+  if (carParticipatingInTrip.length !== 0) {
     let createdTrip = Fuber.createTrip(carParticipatingInTrip[0], requestBody.pickupLocation);
     ctx.response.body = createdTrip;
     ctx.response.status = 201;
   }
-  else{
+  else {
     ctx.response.status = 412;
-    ctx.response.body = {message: "no cars available for trip"}
+    ctx.response.body = { message: "no cars available for trip" }
   }
 
   await next();
 });
 
+
+router.put("/trip/:id", async (ctx, next) => {
+  let requestBody = ctx.request.body;
+  console.log(requestBody)
+  let updatedTrip = Fuber.closeTrip(parseInt(ctx.params.id), requestBody.dropLocation);
+  ctx.response.status = 200;
+  ctx.response.body = updatedTrip;
+
+  await next();
+});
 
 
 
