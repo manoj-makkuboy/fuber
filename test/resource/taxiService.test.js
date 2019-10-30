@@ -74,5 +74,28 @@ test('Should create a new trip with car and pickup location', () => {
 
 });
 
+test('Should close the trip in the given drop location', () => {
+    let car1 = {id: 1, currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
+    car1.setAvailable = jest.fn();
+
+    const dropTimeMock = new Date(1466424490000)
+    jest
+      .spyOn(global, 'Date')
+      .mockImplementation(() => dropTimeMock)
+
+    let fuber = new TaxiService([car1]);
+
+    fuber.trips = [{id: 4, dropLocation: null, dropTime: null}];
+    dropLocation = {latitude: 12, longitude: 10};
+
+    let closedTrip = fuber.closeTrip(fuber.trips[0].id, dropLocation);
+
+    expect(fuber.trips[0].dropLocation).toEqual(dropLocation);    
+    expect(fuber.trips[0].dropTime).toBe(dropTimeMock);
+
+    expect(closedTrip.id).toBe(4);
+
+});
+
 
 

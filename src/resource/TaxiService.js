@@ -33,6 +33,13 @@ class TaxiService {
         return trip;
     }
 
+    closeTrip = (tripId, dropLocation) => {
+        let indexOfTripToClose = this.trips.findIndex((trip) => trip.id === tripId)
+        this.trips[indexOfTripToClose].dropLocation = dropLocation;
+        this.trips[indexOfTripToClose].dropTime = new Date();
+        return this.trips[indexOfTripToClose];
+    }
+
 }
 
 module.exports = TaxiService

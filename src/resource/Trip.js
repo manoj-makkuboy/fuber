@@ -5,6 +5,8 @@ class Trip {
         this.car = car;
         this.pickupLocation = pickupLocation;
         this.pickupTime = new Date();
+        this.dropLocation = null;
+        this.dropTime = null;
     }
 
     static noOfTripsCreated = 0
