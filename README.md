@@ -1,14 +1,21 @@
-# Hello World node koa boilerplate
-
-A very basic node js endpoint with POST and GET request boilerplate with SQLite integration
+# Fuber - taxi service
+    Object oriented modeling practise
 
 ## Getting Started
 
 1. clone the repo
 2. In project root directory run the following
-   > npm install
+   > npm install    
+   > npm test
 3. > node src/server.js
-4. Now ```helloWorld.sqlite``` file will be created in the project root directory
+4. You can find the server running on 3000 port of localhost
+
+## Usage
+
+* [Api Docs] (https://documenter.getpostman.com/view/5091373/SW11YJrX?version=latest#3e40de13-7f32-42ca-9563-2741826cfd1c)
+
+
+
 
 ### Prerequisites
 
@@ -19,6 +26,7 @@ A very basic node js endpoint with POST and GET request boilerplate with SQLite 
 
 * [Koajs](https://koajs.com) - The web framework used
 * [npm](https://npmjs.com) - Dependency Management
+* [jest](https://jestjs.io/) - Test Framework
 
 
 
