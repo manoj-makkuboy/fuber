@@ -1,4 +1,5 @@
 const TaxiService = require("../../src/resource/TaxiService")
+let Utils = require("../../src/util/utils")
 
 test('Should return nearest available car', () => {
     let car1 = {currentLocation: {latitude: 25, longitude: 26}, colour: "pink", averageKilometerPerHour: 15, isAvailable: true};
@@ -7,16 +8,16 @@ test('Should return nearest available car', () => {
 
     
     let fuber = new TaxiService([car1, car2, car3]);
-    fuber.distanceBetweenPoints = jest.fn();
+    Utils.distanceBetweenPoints = jest.fn();
 
-    fuber.distanceBetweenPoints
+    Utils.distanceBetweenPoints
         .mockReturnValueOnce(4)
         .mockReturnValueOnce(5)
 
     let customerLocation = {latitude: 29, longitude: 29}
     let nearestCar = fuber.getNearestAvailableCar(customerLocation)
 
-    expect(fuber.distanceBetweenPoints.mock.calls.length).toBe(2);
+    expect(Utils.distanceBetweenPoints.mock.calls.length).toBe(2);
     expect(nearestCar).toEqual(car1);
 });
 
@@ -37,13 +38,6 @@ test('Should return nearest available car by Chosen Colour', () => {
     expect(fuber.getNearestAvailableCar.mock.calls[0][1]).toEqual([car1, car3, car4]);
 });
 
-test('Should return distance between two points', () => {
-    let car1 = {currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
-
-    let fuber = new TaxiService([car1]);
-
-    expect(fuber.distanceBetweenPoints([1,1], [2,2])).toBe(1);
-});
 
 test('Should create a new trip with car and pickup location', () => {
     let car1 = {id: 1, currentLocation: {latitude: 50, longitude: 60}, colour: "pink", averageKilometerPerHour: 15};
