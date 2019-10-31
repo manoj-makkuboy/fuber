@@ -7,7 +7,7 @@ class TaxiService {
 
     getNearestAvailableCar(customerLocation, cars = this.cars) {
         let availableCars = cars.filter((car) => car.isAvailable);
-        let distanceArray = availableCars.map((car) => this._distanceBetweenPoints([car.currentLocation.latitude, car.currentLocation.longitude], [customerLocation.latitude, customerLocation.longitude]));
+        let distanceArray = availableCars.map((car) => this.distanceBetweenPoints([car.currentLocation.latitude, car.currentLocation.longitude], [customerLocation.latitude, customerLocation.longitude]));
         let nearestDistanceIndex = distanceArray.indexOf(Math.min(...distanceArray))
 
         return availableCars[nearestDistanceIndex]
@@ -18,7 +18,7 @@ class TaxiService {
         return this.getNearestAvailableCar(customerLocation, carsWithRequiredColors)
     }
 
-    _distanceBetweenPoints(coorindate1, coordinate2) {
+    distanceBetweenPoints(coorindate1, coordinate2) {
         let a = coorindate1[0] - coordinate2[0];
         let b = coorindate1[1] - coordinate2[1];
 

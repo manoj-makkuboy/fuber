@@ -7,16 +7,16 @@ test('Should return nearest available car', () => {
 
     
     let fuber = new TaxiService([car1, car2, car3]);
-    fuber._distanceBetweenPoints = jest.fn();
+    fuber.distanceBetweenPoints = jest.fn();
 
-    fuber._distanceBetweenPoints
+    fuber.distanceBetweenPoints
         .mockReturnValueOnce(4)
         .mockReturnValueOnce(5)
 
     let customerLocation = {latitude: 29, longitude: 29}
     let nearestCar = fuber.getNearestAvailableCar(customerLocation)
 
-    expect(fuber._distanceBetweenPoints.mock.calls.length).toBe(2);
+    expect(fuber.distanceBetweenPoints.mock.calls.length).toBe(2);
     expect(nearestCar).toEqual(car1);
 });
 
@@ -42,7 +42,7 @@ test('Should return distance between two points', () => {
 
     let fuber = new TaxiService([car1]);
 
-    expect(fuber._distanceBetweenPoints([1,1], [2,2])).toBe(1);
+    expect(fuber.distanceBetweenPoints([1,1], [2,2])).toBe(1);
 });
 
 test('Should create a new trip with car and pickup location', () => {
