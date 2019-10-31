@@ -106,3 +106,24 @@ test('Should return the total duration of the trip', () => {
     expect(tripDuration).toBe(1);
 
 });
+
+test('Should return the total distance of the trip', () => {
+    let car1 = {
+        id: 1,
+        currentLocation: { latitude: 50, longitude: 60 },
+        colour: "pink",
+        isAvailable: true
+    };
+    car1.setAvailable = jest.fn()
+
+    let pickupLocation = { latitude: 30, longitude: 40 }
+
+    let trip = new Trip(car1, pickupLocation);
+
+    trip.dropLocation = {latitude: 32, longitude: 42}
+
+    let tripDistance = trip.getTripDistanceInKilometers();
+
+    expect(tripDistance).toBe(31);
+
+});

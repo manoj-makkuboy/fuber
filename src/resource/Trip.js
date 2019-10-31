@@ -1,3 +1,4 @@
+let Utils = require("../util/utils")
 class Trip {
     constructor(car, pickupLocation) {
         this.id = Trip.setAutoIncrementId();
@@ -17,9 +18,14 @@ class Trip {
     }
 
     getTripDurationInMinutes(){
-        console.log(this.dropTime, this.pickupTime)
         const diffInMinutes = parseInt((this.dropTime - this.pickupTime) / (1000 * 60), 10); 
         return diffInMinutes; 
+    }
+
+    getTripDistanceInKilometers() {
+        let distanceBetweenCurrentCarLocationAndPickupLocation = Utils.distanceBetweenPoints([this.car.currentLocation.latitude, this.car.currentLocation.longitude], [this.pickupLocation.latitude, this.pickupLocation.longitude]);
+        let distanceBetweenDropLocationAndPickupLocation = Utils.distanceBetweenPoints([this.pickupLocation.latitude, this.pickupLocation.longitude], [this.dropLocation.latitude, this.dropLocation.longitude]);
+        return distanceBetweenCurrentCarLocationAndPickupLocation + distanceBetweenDropLocationAndPickupLocation
     }
 
 }
