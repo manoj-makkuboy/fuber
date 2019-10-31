@@ -95,7 +95,7 @@ test('Should return the total duration of the trip', () => {
 
     const pickUpDateTime = new Date('Thu Oct 31 2019 13:07:00 GMT+0530 (India Standard Time)')
     
-    const dropDateTime = new Date('Thu Oct 31 2019 13:08:00 GMT+0530 (India Standard Time)')
+    const dropDateTime = new Date('Thu Oct 31 2019 13:09:00 GMT+0530 (India Standard Time)')
 
     let trip = new Trip(car1, pickupLocation);
     trip.pickupTime = pickUpDateTime;
@@ -103,7 +103,7 @@ test('Should return the total duration of the trip', () => {
 
     let tripDuration = trip.getTripDurationInMinutes();
 
-    expect(tripDuration).toBe(1);
+    expect(tripDuration).toBe(2);
 
 });
 
