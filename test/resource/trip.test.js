@@ -51,7 +51,7 @@ test('Should create pickup time on create of new trip', () => {
     let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
 
     const mockDate = new Date(1466424490000)
-    jest
+    let spy = jest
       .spyOn(global, 'Date')
       .mockImplementation(() => mockDate)
 
@@ -64,6 +64,7 @@ test('Should create pickup time on create of new trip', () => {
     expect(Trip.noOfTripsCreated).toBe(2);
     expect(trip2.pickupTime).toBe(new Date());
 
+    spy.mockRestore();
 });
 
 test('Should set availability of car to false on create of new trip', () => {
@@ -79,5 +80,29 @@ test('Should set availability of car to false on create of new trip', () => {
     let trip1 = new Trip(car1, pickupLocation);
 
     expect(car1.isAvailable).toBe(false);
+});
+
+test('Should return the total duration of the trip', () => {
+    let car1 = {
+        id: 1,
+        currentLocation: { latitude: 50, longitude: 60 },
+        colour: "pink",
+        isAvailable: true
+    };
+    car1.setAvailable = jest.fn()
+
+    let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
+
+    const pickUpDateTime = new Date('Thu Oct 31 2019 13:07:00 GMT+0530 (India Standard Time)')
+    
+    const dropDateTime = new Date('Thu Oct 31 2019 13:08:00 GMT+0530 (India Standard Time)')
+
+    let trip = new Trip(car1, pickupLocation);
+    trip.pickupTime = pickUpDateTime;
+    trip.dropTime = dropDateTime;
+
+    let tripDuration = trip.getTripDurationInMinutes();
+
+    expect(tripDuration).toBe(1);
 
 });

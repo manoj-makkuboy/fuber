@@ -16,6 +16,12 @@ class Trip {
         return Trip.noOfTripsCreated
     }
 
+    getTripDurationInMinutes(){
+        console.log(this.dropTime, this.pickupTime)
+        const diffInMinutes = parseInt((this.dropTime - this.pickupTime) / (1000 * 60), 10); 
+        return diffInMinutes; 
+    }
+
 }
 
 module.exports = Trip
