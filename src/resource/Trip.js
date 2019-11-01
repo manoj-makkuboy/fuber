@@ -1,5 +1,11 @@
 let Utils = require("../util/utils")
 class Trip {
+
+    static dogecoinPerMinute = 1;
+    static dogecoinPerKilometer = 2;
+
+    static dogecoinForCarColour = {"pink": 5}
+
     constructor(car, pickupLocation) {
         this.id = Trip.setAutoIncrementId();
         car.setAvailable(false);
@@ -8,6 +14,7 @@ class Trip {
         this.pickupTime = new Date();
         this.dropLocation = null;
         this.dropTime = null;
+        this.totalCost = null;
     }
 
     static noOfTripsCreated = 0
@@ -32,6 +39,10 @@ class Trip {
         this.dropLocation = dropLocation;
         this.dropTime = new Date();
         return this
+    }
+
+    calculateTripCost = () => {
+        this.totalCost = (this.getTripDurationInMinutes() * Trip.dogecoinPerMinute) + (this.getTripDistanceInKilometers() * Trip.dogecoinPerKilometer) + Trip.dogecoinForCarColour[this.car.colour];
     }
 
 

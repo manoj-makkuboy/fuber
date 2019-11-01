@@ -153,3 +153,35 @@ test('Should close the trip in the given drop location', () => {
     expect(closedTrip.dropTime).toBe(dropTimeMock);
 
 });
+
+test('Should calculate the trip cost', () => {
+    let car1 = {
+        id: 1,
+        currentLocation: { latitude: 50, longitude: 60 },
+        colour: "pink",
+        isAvailable: true
+    };
+    car1.setAvailable = jest.fn()
+
+    let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
+
+    let trip = new Trip(car1, pickupLocation);
+
+    let distanceCovered = 31;
+    let tripDuration = 2;
+
+    trip.getTripDistanceInKilometers = jest.fn().mockReturnValueOnce(distanceCovered);
+    trip.getTripDurationInMinutes = jest.fn().mockReturnValueOnce(tripDuration); 
+
+
+    trip.calculateTripCost()
+    let totalTripCost = trip.totalCost;
+
+    let dogecoinPerMinute = 1;
+    let dogecoinPerKilometer = 2;
+    let dogecoinForSelectedCarColour = 5;
+
+    let expectedCost = (tripDuration * dogecoinPerMinute) + (distanceCovered * dogecoinPerKilometer) + dogecoinForSelectedCarColour;
+
+    expect(totalTripCost).toBe(expectedCost);
+});
