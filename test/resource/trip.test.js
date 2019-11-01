@@ -140,10 +140,13 @@ test('Should close the trip in the given drop location', () => {
     let pickupLocation = { latitude: 30, longitude: 40 }
 
     let trip = new Trip(car1, pickupLocation);
+    trip.calculateTripCost = jest.fn()
 
     dropLocation = { latitude: 12, longitude: 10 };
 
     let closedTrip = trip.closeTrip(dropLocation);
+
+    expect(trip.calculateTripCost).toBeCalled()
 
     expect(trip.dropLocation).toEqual(dropLocation);
     expect(trip.dropTime).toBe(dropTimeMock);

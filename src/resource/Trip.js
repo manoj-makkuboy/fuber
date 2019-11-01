@@ -38,6 +38,7 @@ class Trip {
     closeTrip = (dropLocation) => {
         this.dropLocation = dropLocation;
         this.dropTime = new Date();
+        this.calculateTripCost();
         return this
     }
 
