@@ -10,6 +10,13 @@
 3. > node src/server.js
 4. You can find the server running on 3000 port of localhost
 
+## Assumptions
+
+The system starts the trip as soon as the car is allocated. Viz 
+
+* Duration between car assigned and drop is the total trip time
+* Distance from car's current location to the pickup location + pickup location to drop location is the total distance of trip
+
 ## Usage
 
 * [Api Docs] (https://documenter.getpostman.com/view/5091373/SW11YJrX?version=latest)
