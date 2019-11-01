@@ -43,7 +43,7 @@ class Trip {
     }
 
     calculateTripCost = () => {
-        this.totalCost = (this.getTripDurationInMinutes() * Trip.dogecoinPerMinute) + (this.getTripDistanceInKilometers() * Trip.dogecoinPerKilometer) + Trip.dogecoinForCarColour[this.car.colour];
+        this.totalCost = (this.getTripDurationInMinutes() * Trip.dogecoinPerMinute) + (this.getTripDistanceInKilometers() * Trip.dogecoinPerKilometer) + (Trip.dogecoinForCarColour[this.car.colour] || 0);
     }
 
 
