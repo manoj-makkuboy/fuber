@@ -157,7 +157,7 @@ test('Should close the trip in the given drop location', () => {
 
 });
 
-test('Should calculate the trip cost', () => {
+test('Should calculate the trip cost when the color price for colour is defined', () => {
     let car1 = {
         id: 1,
         currentLocation: { latitude: 50, longitude: 60 },
