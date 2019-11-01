@@ -12,14 +12,14 @@ class Trip {
 
     static noOfTripsCreated = 0
 
-    static setAutoIncrementId(){
+    static setAutoIncrementId() {
         Trip.noOfTripsCreated = Trip.noOfTripsCreated + 1
         return Trip.noOfTripsCreated
     }
 
-    getTripDurationInMinutes(){
-        const diffInMinutes = parseInt((this.dropTime - this.pickupTime) / (1000 * 60), 10); 
-        return diffInMinutes; 
+    getTripDurationInMinutes() {
+        const diffInMinutes = parseInt((this.dropTime - this.pickupTime) / (1000 * 60), 10);
+        return diffInMinutes;
     }
 
     getTripDistanceInKilometers() {
@@ -27,6 +27,13 @@ class Trip {
         let distanceBetweenDropLocationAndPickupLocation = Utils.distanceBetweenPoints([this.pickupLocation.latitude, this.pickupLocation.longitude], [this.dropLocation.latitude, this.dropLocation.longitude]);
         return distanceBetweenCurrentCarLocationAndPickupLocation + distanceBetweenDropLocationAndPickupLocation
     }
+
+    closeTrip = (dropLocation) => {
+        this.dropLocation = dropLocation;
+        this.dropTime = new Date();
+        return this
+    }
+
 
 }
 

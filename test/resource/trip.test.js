@@ -52,8 +52,8 @@ test('Should create pickup time on create of new trip', () => {
 
     const mockDate = new Date(1466424490000)
     let spy = jest
-      .spyOn(global, 'Date')
-      .mockImplementation(() => mockDate)
+        .spyOn(global, 'Date')
+        .mockImplementation(() => mockDate)
 
 
     let trip1 = new Trip(car1, pickupLocation);
@@ -94,7 +94,7 @@ test('Should return the total duration of the trip', () => {
     let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
 
     const pickUpDateTime = new Date('Thu Oct 31 2019 13:07:00 GMT+0530 (India Standard Time)')
-    
+
     const dropDateTime = new Date('Thu Oct 31 2019 13:09:00 GMT+0530 (India Standard Time)')
 
     let trip = new Trip(car1, pickupLocation);
@@ -120,10 +120,36 @@ test('Should return the total distance of the trip', () => {
 
     let trip = new Trip(car1, pickupLocation);
 
-    trip.dropLocation = {latitude: 32, longitude: 42}
+    trip.dropLocation = { latitude: 32, longitude: 42 }
 
     let tripDistance = trip.getTripDistanceInKilometers();
 
     expect(tripDistance).toBe(31);
+
+});
+
+test('Should close the trip in the given drop location', () => {
+    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink", averageKilometerPerHour: 15 };
+    car1.setAvailable = jest.fn();
+
+    const dropTimeMock = new Date(1466424490000)
+    jest
+        .spyOn(global, 'Date')
+        .mockImplementation(() => dropTimeMock)
+
+    let pickupLocation = { latitude: 30, longitude: 40 }
+
+    let trip = new Trip(car1, pickupLocation);
+
+    dropLocation = { latitude: 12, longitude: 10 };
+
+    let closedTrip = trip.closeTrip(dropLocation);
+
+    expect(trip.dropLocation).toEqual(dropLocation);
+    expect(trip.dropTime).toBe(dropTimeMock);
+
+
+    expect(closedTrip.dropLocation).toEqual(dropLocation);
+    expect(closedTrip.dropTime).toBe(dropTimeMock);
 
 });
