@@ -11,7 +11,6 @@ test('Should create new car instance', () => {
         id: 1,
         currentLocation: { latitude: 50, longitude: 60 },
         colour: "pink",
-        averageKilometerPerHour: 15
     });
     let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
     let trip1 = new Trip(car1, pickupLocation);
@@ -24,7 +23,6 @@ test('Should Auto Increment ID on create of new trip', () => {
         id: 1,
         currentLocation: { latitude: 50, longitude: 60 },
         colour: "pink",
-        averageKilometerPerHour: 15
     });
     let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
 
@@ -46,7 +44,6 @@ test('Should create pickup time on create of new trip', () => {
         id: 1,
         currentLocation: { latitude: 50, longitude: 60 },
         colour: "pink",
-        averageKilometerPerHour: 15
     });
     let pickupLocation = { pickupLocation: { latitude: 30, longitude: 40 } }
 
@@ -129,7 +126,7 @@ test('Should return the total distance of the trip', () => {
 });
 
 test('Should close the trip in the given drop location', () => {
-    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink", averageKilometerPerHour: 15 };
+    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink" };
     car1.setAvailable = jest.fn();
 
     const dropTimeMock = new Date(1466424490000)

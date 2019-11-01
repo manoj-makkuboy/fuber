@@ -2,9 +2,9 @@ const TaxiService = require("../../src/resource/TaxiService")
 let Utils = require("../../src/util/utils")
 
 test('Should return nearest available car', () => {
-    let car1 = { currentLocation: { latitude: 25, longitude: 26 }, colour: "pink", averageKilometerPerHour: 15, isAvailable: true };
-    let car2 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "blue", averageKilometerPerHour: 15, isAvailable: true };
-    let car3 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "blue", averageKilometerPerHour: 15, isAvailable: false };
+    let car1 = { currentLocation: { latitude: 25, longitude: 26 }, colour: "pink",  isAvailable: true };
+    let car2 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "blue",  isAvailable: true };
+    let car3 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "blue",  isAvailable: false };
 
 
     let fuber = new TaxiService([car1, car2, car3]);
@@ -22,10 +22,10 @@ test('Should return nearest available car', () => {
 });
 
 test('Should return nearest available car by Chosen Colour', () => {
-    let car1 = { currentLocation: { latitude: 25, longitude: 26 }, colour: "pink", averageKilometerPerHour: 15, isAvailable: true };
-    let car2 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "blue", averageKilometerPerHour: 15, isAvailable: true };
-    let car3 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "pink", averageKilometerPerHour: 15, isAvailable: true };
-    let car4 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "pink", averageKilometerPerHour: 15, isAvailable: false };
+    let car1 = { currentLocation: { latitude: 25, longitude: 26 }, colour: "pink",  isAvailable: true };
+    let car2 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "blue",  isAvailable: true };
+    let car3 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "pink",  isAvailable: true };
+    let car4 = { currentLocation: { latitude: 30, longitude: 31 }, colour: "pink",  isAvailable: false };
 
 
     let fuber = new TaxiService([car1, car2, car3, car4]);
@@ -40,14 +40,14 @@ test('Should return nearest available car by Chosen Colour', () => {
 
 
 test('Should create a new trip with car and pickup location', () => {
-    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink", averageKilometerPerHour: 15 };
+    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink"};
     car1.setAvailable = jest.fn();
     let pickupLocationForCar1 = {
         "latitude": 30,
         "longitude": 31
     }
 
-    let car2 = { id: 2, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink", averageKilometerPerHour: 15 };
+    let car2 = { id: 2, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink" };
     car2.setAvailable = jest.fn();
     let pickupLocationForCar2 = {
         "latitude": 60,
@@ -69,7 +69,7 @@ test('Should create a new trip with car and pickup location', () => {
 });
 
 test('Should return the trip instance with the given ID', () => {
-    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink", averageKilometerPerHour: 15 };
+    let car1 = { id: 1, currentLocation: { latitude: 50, longitude: 60 }, colour: "pink" };
     car1.setAvailable = jest.fn();
 
     let fuber = new TaxiService([car1]);
