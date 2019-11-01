@@ -25,6 +25,10 @@ class TaxiService {
         return trip;
     }
 
+    findTripById (tripId) {
+        return this.trips.find((trip) => trip.id === tripId)
+    }
+
 }
 
 module.exports = TaxiService
