@@ -19,7 +19,7 @@
 
 ### Prerequisites
 
-* node
+* node - v12.6.0
 * npm
 
 ## Built With
