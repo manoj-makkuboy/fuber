@@ -56,9 +56,10 @@ router.post("/trip", async (ctx, next) => {
 router.put("/trip/:id", async (ctx, next) => {
   let requestBody = ctx.request.body;
   console.log(requestBody)
-  let updatedTrip = Fuber.closeTrip(parseInt(ctx.params.id), requestBody.dropLocation);
+  let tripToUpdate = Fuber.findTripById(parseInt(ctx.params.id));
+  tripToUpdate.closeTrip(requestBody.dropLocation);
   ctx.response.status = 200;
-  ctx.response.body = updatedTrip;
+  ctx.response.body = tripToUpdate;
 
   await next();
 });
