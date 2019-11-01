@@ -1,5 +1,5 @@
 # Fuber - taxi service
-    Object oriented modeling practise
+    Object Oriented modeling practise
 
 ## Getting Started
 
@@ -12,9 +12,22 @@
 
 ## Usage
 
-* [Api Docs] (https://documenter.getpostman.com/view/5091373/SW11YJrX?version=latest#3e40de13-7f32-42ca-9563-2741826cfd1c)
+* [Api Docs] (https://documenter.getpostman.com/view/5091373/SW11YJrX?version=latest)
 
+use 
+> GET /car?pickupCoordinates=20,20 
 
+to get the nearest car
+
+use 
+> POST /trip
+
+to create a trip with the car ID got from the GET /car
+
+use 
+> PUT /trip 
+
+to close the trip
 
 
 ### Prerequisites
